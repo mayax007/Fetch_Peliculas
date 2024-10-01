@@ -31,21 +31,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Call<MovieResponse> call = RetrofitClient.getInstance().getPopularMovies();
-                call.enqueue(new Callback<MovieResponse>() {
-                    @Override
-                    public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                        if (response.isSuccessful()) {
-                            List<Movie> movies = response.body().getResults();
-                            for(Movie myMovie:movies) {
-                                Toast.makeText(MainActivity.this,"Movie" + myMovie.getTitle(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                Calling(call);
+            }
+        });
+    }
+
+    protected void Calling(Call<MovieResponse> call){
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if (response.isSuccessful()) {
+                    List<Movie> movies = response.body().getResults();
+                    for(Movie myMovie:movies) {
+                        Toast.makeText(MainActivity.this,"Movie" + myMovie.getTitle(), Toast.LENGTH_SHORT).show();
                     }
-                    @Override
-                    public void onFailure(Call<MovieResponse> call, Throwable t) {
-                        // Maneja el error aquí
-                    }
-                });
+                }
+            }
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                // Maneja el error aquí
             }
         });
     }
