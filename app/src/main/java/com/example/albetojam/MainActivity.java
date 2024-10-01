@@ -3,8 +3,6 @@ package com.example.albetojam;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +18,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView Text;
     private Button btnPopular;
 
     @Override
@@ -28,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnPopular = (Button) findViewById(R.id.btnPopular);
-        Text = (TextView) findViewById(R.id.Text);
+        btnPopular = findViewById(R.id.btnPopular);
 
         btnPopular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             List<Movie> movies = response.body().getResults();
                             for(Movie myMovie:movies) {
-                                Toast.makeText(MainActivity.this,"Movie" + myMovie.getTitle(), Toast.LENGTH_SHORT);
+                                Toast.makeText(MainActivity.this,"Movie" + myMovie.getTitle(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
