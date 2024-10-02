@@ -18,25 +18,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnPopular;
+    private Button botonPopular;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnPopular = findViewById(R.id.btnPopular);
+        botonPopular = findViewById(R.id.btnPopular);
 
-        btnPopular.setOnClickListener(new View.OnClickListener() {
+        botonPopular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Call<MovieResponse> call = RetrofitClient.getInstance().getPopularMovies();
-                Calling(call);
+                calling(call);
             }
         });
     }
-
-    protected void Calling(Call<MovieResponse> call){
+    protected void calling(Call<MovieResponse> call){
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
