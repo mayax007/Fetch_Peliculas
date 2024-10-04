@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = buscaTitulo.getText().toString();
                 String language = buscaIdioma.getText().toString();
-                int page = Integer.parseInt(buscaId.getText().toString());
+                int page = 1;
+                if (title.isEmpty() || language.isEmpty()){
+                    Toast.makeText(MainActivity.this, "Rellene los campos", Toast.LENGTH_SHORT).show();
+                }
                 Call<MovieResponse> call = RetrofitClient.getInstance().getSearchMovie(title, language, page);
                 calling(call);
             }
@@ -63,7 +66,12 @@ public class MainActivity extends AppCompatActivity {
         botonDetalles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = Integer.parseInt(Buscador.getText().toString());
+                int id = 554;
+                try {
+                    id = Integer.parseInt(buscaId.getText().toString());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(MainActivity.this, "Por favor, ingrese un número válido.", Toast.LENGTH_SHORT).show();
+                }
                 Call<MovieResponse> call = RetrofitClient.getInstance().getMovieDetails(id);
                 calling(call);
             }
@@ -79,11 +87,13 @@ public class MainActivity extends AppCompatActivity {
                         result.append(movie.getTitle()).append("\n");
                     }
                     Resultados.setText(result.toString());
+                } else {
+                    Toast.makeText(MainActivity.this, "No se encontraron resultados", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-                // Maneja el error aquí
+                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
