@@ -22,7 +22,8 @@
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="Ponga el Titulo o ID"
+        android:hint="Buscar película"
+        android:inputType="text"
         android:textAlignment="center"/>
 
     <LinearLayout

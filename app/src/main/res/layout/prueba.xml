@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Título de la película"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/languageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Idioma de la película (ej: en, es)"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/idEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID de la película"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btnPopular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar por Título" />
+
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar por Idioma" />
+
+    <Button
+        android:id="@+id/btnDetalles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Obtener Detalles por ID" />
+
+    <TextView
+        android:id="@+id/resultsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:textSize="16sp" />
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,17 +23,23 @@ public class MainActivity extends AppCompatActivity {
     private Button botonPopular;
     private Button botonBuscar;
     private Button botonDetalles;
-    private EditText Buscador;
+    private EditText buscaTitulo, buscaIdioma, buscaId;
+    private TextView Resultados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.prueba);
 
         botonPopular = findViewById(R.id.btnPopular);
         botonBuscar = findViewById(R.id.btnBuscar);
         botonDetalles = findViewById(R.id.btnDetalles);
-        Buscador = findViewById(R.id.searchBar);
+
+        buscaTitulo = findViewById(R.id.titleEditText);
+        buscaIdioma = findViewById(R.id.languageEditText);
+        buscaId = findViewById(R.id.idEditText);
+
+        Resultados = findViewById(R.id.resultsTextView);
 
         botonPopular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
         botonBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = Buscador.getText().toString();
-                Call<MovieResponse> call = RetrofitClient.getInstance().getSearchMovie(title);
+                String title = buscaTitulo.getText().toString();
+                String language = buscaIdioma.getText().toString();
+                int page = Integer.parseInt(buscaId.getText().toString());
+                Call<MovieResponse> call = RetrofitClient.getInstance().getSearchMovie(title, language, page);
                 calling(call);
             }
         });
@@ -65,10 +74,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.isSuccessful()) {
-                    List<Movie> movies = response.body().getResults();
-                    for(Movie myMovie:movies) {
-                        Toast.makeText(MainActivity.this,"Movie" + myMovie.getTitle(), Toast.LENGTH_SHORT).show();
+                    StringBuilder result = new StringBuilder();
+                    for (Movie movie : response.body().getResults()) {
+                        result.append(movie.getTitle()).append("\n");
                     }
+                    Resultados.setText(result.toString());
                 }
             }
             @Override
